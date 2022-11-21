@@ -1,4 +1,5 @@
 from .modules import FastAPI, subprocess, PUBLIC_DIR, STATIC_DIR
+from api_studia.routes.api import kelas
 
 app = FastAPI(
     title="API Studia",
@@ -8,6 +9,8 @@ app = FastAPI(
     debug=True,
 )
 
+app.include_router(kelas.kelas_route)
+
 
 @app.get("/")
 def root():
@@ -15,5 +18,6 @@ def root():
 
 
 def start():
-    cmd = ["poetry", "run", "uvicorn", "api_studia.app:app", "--reload", "--host", "127.0.0.1", "--port", "8000"]
+    cmd = ["poetry", "run", "uvicorn", "api_studia.app:app",
+           "--reload", "--host", "127.0.0.1", "--port", "8000"]
     subprocess.run(cmd, shell=True)

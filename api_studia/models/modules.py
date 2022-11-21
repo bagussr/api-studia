@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Date, Integer, String, create_engine, ForeignKey, Boolean
-from service.db_service import Base
+from api_studia.service.db_service import Base
 import subprocess
 
 
@@ -14,5 +14,6 @@ def downgrade():
 
 
 def migrate():
-    cmd = ["poetry", "run", "alembic", "revision", "--autogenerate", "-m", "migration"]
+    cmd = ["poetry", "run", "alembic", "revision",
+           "--autogenerate", "-m", "migration"]
     subprocess.run(cmd, shell=True)
