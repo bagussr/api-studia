@@ -14,6 +14,9 @@ import uvicorn
 import os
 import pathlib
 import subprocess
+import dotenv
+
+dotenv.load_dotenv()
 
 
 PUBLIC_DIR = os.path.join(pathlib.Path().absolute().parent, "public")

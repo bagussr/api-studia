@@ -1,4 +1,4 @@
-from .modules import FastAPI, subprocess, PUBLIC_DIR, STATIC_DIR
+from .modules import FastAPI, subprocess, PUBLIC_DIR, STATIC_DIR, AuthJWTException, JSONResponse
 
 app = FastAPI(
     title="API Studia",
@@ -9,9 +9,12 @@ app = FastAPI(
 )
 
 
-@app.get("/")
-def root():
-    return {"message": "Hello World"}
+@app.exception_handler(AuthJWTException)
+def authjwt_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.message},
+    )
 
 
 def start():
