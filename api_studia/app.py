@@ -1,4 +1,4 @@
-from .modules import FastAPI, subprocess, PUBLIC_DIR, STATIC_DIR
+from .modules import FastAPI, subprocess, PUBLIC_DIR, STATIC_DIR, AuthJWTException, JSONResponse
 from api_studia.routes.api import kelas
 
 app = FastAPI(
@@ -12,9 +12,12 @@ app = FastAPI(
 app.include_router(kelas.kelas_route)
 
 
-@app.get("/")
-def root():
-    return {"message": "Hello World"}
+@app.exception_handler(AuthJWTException)
+def authjwt_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.message},
+    )
 
 
 def start():
