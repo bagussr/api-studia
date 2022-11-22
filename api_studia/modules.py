@@ -23,6 +23,6 @@ PUBLIC_DIR = os.path.join(pathlib.Path().absolute().parent, "public")
 
 STATIC_DIR = os.path.join(pathlib.Path().absolute().parent, "public/asset")
 
-DB_URI = ""
+DB_URI = "postgresql://postgres:root@localhost/studia"
 
 template = Jinja2Templates(directory=PUBLIC_DIR)
