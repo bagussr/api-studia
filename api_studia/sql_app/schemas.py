@@ -76,21 +76,3 @@ class Konten(KontenBase):
     class Config:
         orm_mode = True
 
-
-class KelasBase(BaseModel):
-    id: str
-    name: str
-    section: str
-    code: str
-
-
-class KelasCreate(KelasBase):
-    pass
-
-
-class Kelas(KelasBase):
-    tugas_list: list[Tugas] = []
-    konten_list: list[Konten] = []
-
-    class Config:
-        orm_mode = True
