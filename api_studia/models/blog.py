@@ -5,12 +5,12 @@ class Konten(Base):
     __tablename__ = "konten"
 
     id = Column(Integer, primary_key=True, index=True)
-    kelas_id = Column(UUID(as_uuid=True)), ForeignKey("kelas.id")
     photo_id = Column(Integer, ForeignKey("media.id"))
     name = Column(String(255))
     release_date = Column(String)
     text = Column(Text)
     synopsis = Column(Text)
+    owned_by = Column(UUID(as_uuid=True)), ForeignKey("kelas.id")
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 
@@ -22,12 +22,12 @@ class Konten(Base):
         return json.dumps(
             {
                 "id": self.id,
-                "kelas_id": self.kelas_id,
-                "photo_id": self.photo_id,
                 "name": self.name,
                 "release_date": self.release_date,
                 "text": self.text,
                 "synopsis": self.synopsis,
+                "photo_id": self.photo_id,
+                "owned_by": self.owned_by,
                 "created_at": self.created_at,
                 "updated_at": self.updated_at,
             }

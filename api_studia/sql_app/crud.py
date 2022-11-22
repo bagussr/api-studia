@@ -3,25 +3,7 @@ from sqlalchemy.orm import Session
 from api_studia.sql_app import models, schemas
 
 
-def get_all_tugas_kelas(db: Session, kelas_id: str, skip: int = 0):
-    return db.query(models.Tugas).offset(skip).filter_by(models.Tugas.kelas_id == kelas_id).all()
 
-
-def get_tugas_kelas(db: Session, kelas_id: str, konten_id: str, skip: int = 0):
-    return (
-        db.query(models.Tugas)
-        .offset(skip)
-        .filter(models.Tugas.kelas_id == kelas_id and models.Tugas.id == konten_id)
-        .first()
-    )
-
-
-def create_tugas_kelas(db: Session, tugas: schemas.TugasCreate, kelas_id: str):
-    db_tugas = models.Tugas(**tugas.dict(), kelas_id=kelas_id)
-    db.add(db_tugas)
-    db.commit()
-    db.refresh(db_tugas)
-    return db_tugas
 
 
 def get_all_konten_kelas(db: Session, kelas_id: str, skip: int = 0):

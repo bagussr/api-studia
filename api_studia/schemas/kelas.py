@@ -1,9 +1,11 @@
 from api_studia.modules import BaseModel
 from api_studia.models import tugas, blog
+from datetime import datetime
+from uuid import UUID
 
 
 class KelasBase(BaseModel):
-    id: str
+    owner_id: str
     name: str
     section: str
     code: str
@@ -14,8 +16,11 @@ class KelasCreate(KelasBase):
 
 
 class Kelas(KelasBase):
-    tugas_list: list[tugas.Tugas]
-    konten_list: list[blog.Konten]
+    id: UUID
+    # tugas_list: list[tugas.Tugas]
+    # konten_list: list[blog.Konten]
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         orm_mode = True

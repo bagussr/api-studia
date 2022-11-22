@@ -2,24 +2,6 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
-class TugasBase(BaseModel):
-    id: str
-    name: str
-    description: str
-    deadline: datetime
-
-
-class TugasCreate(TugasBase):
-    pass
-
-
-class Tugas(TugasBase):
-    kelas_id: int
-
-    class Config:
-        orm_mode = True
-
-
 class MediaPhotoBase(BaseModel):
     id: int
     konten_id: str
@@ -34,7 +16,6 @@ class MediaPhotoCreate(MediaPhotoBase):
 
 
 class MediaPhoto(MediaPhotoBase):
-
     class Config:
         orm_mode = True
 
@@ -52,7 +33,6 @@ class CommentCreate(CommentBase):
 
 
 class Comment(CommentBase):
-
     class Config:
         orm_mode = True
 
@@ -75,4 +55,3 @@ class Konten(KontenBase):
 
     class Config:
         orm_mode = True
-

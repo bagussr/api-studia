@@ -1,4 +1,5 @@
 from .modules import Base, Integer, String, Column, Boolean, json, ForeignKey, relationship, UUID, DateTime, datetime
+from .userkelas import UserKelas
 import uuid
 
 
@@ -20,8 +21,7 @@ class Users(Base):
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 
     media = relationship("Media", back_populates="users")
-    userkelas_rel = relationship("Userkelas", back_populates="user")
-    kelas = relationship("Kelas", back_populates="owner_id")
+    kelas = relationship("Kelas", back_populates="owner_id", secondary=UserKelas.__table__)
     comment = relationship("Comment", back_populates="users")
 
     def __repr__(self):
