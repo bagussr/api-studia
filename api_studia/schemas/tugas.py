@@ -13,6 +13,10 @@ class TugasCreate(TugasBase):
     pass
 
 
+class TugasUpdate(TugasBase):
+    pass
+
+
 class Tugas(TugasBase):
     id: str
     kelas_id: str
