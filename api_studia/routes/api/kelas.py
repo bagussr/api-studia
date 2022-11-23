@@ -6,24 +6,24 @@ from api_studia.schemas.kelas import KelasCreate, Kelas
 kelas_route = APIRouter(prefix="/kelas", tags=["kelas"])
 
 
-@kelas_route.post("/", response_model=Kelas)
-def create_kelas(kelas: KelasCreate, db: Session = Depends(get_db)):
-    return create_kelas(db=db, kelas=kelas)
+@kelas_route.post("/")
+async def create_kelas_route(kelas: KelasCreate, db: Session = Depends(get_db)):
+    data = await create_kelas(db, kelas)
+    return {"message": "success"}
 
 
 @kelas_route.get("/")
 def read_all_kelas(skip: int = 0, db: Session = Depends(get_db)):
     all_kelas = get_all_kelas(db, skip=skip)
-    print(all_kelas)
-    return {"message": "Hello World"}
+    return {"data": all_kelas}
 
 
-@kelas_route.get("/{kelas_id}", response_model=Kelas)
+@kelas_route.get("/{kelas_id}")
 def read_kelas(kelas_id: str, db: Session = Depends(get_db)):
     db_kelas = get_kelas(db, kelas_id=kelas_id)
     if db_kelas is None:
         raise HTTPException(status_code=404, detail="Kelas Not Found")
-    return db_kelas
+    return {"data": db_kelas}
 
 
 # @kelas_route.post("/{kelas_id}/konten", response_model=schemas.Konten)

@@ -17,11 +17,12 @@ class Kelas(Base):
     section = Column(String(100), nullable=False)
     code = Column(String(10), default=randomword(10), unique=True)
     created_by = Column(UUID(as_uuid=True), ForeignKey("users.id"))
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    update_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.datetime.now)
+    update_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
     tugas = relationship("Tugas", back_populates="kelas")
     owner_id = relationship("Users", back_populates="kelas", secondary=UserKelas.__table__)
+    rel_konten_kelas = relationship("Konten", back_populates="rel_kelas_konten")
 
     def __repr__(self):
         return json.dumps(
@@ -30,5 +31,8 @@ class Kelas(Base):
                 "name": self.name,
                 "section": self.section,
                 "code": self.code,
+                "created_by": self.created_by,
+                "created_at": self.created_at,
+                "update_at": self.update_at,
             }
         )

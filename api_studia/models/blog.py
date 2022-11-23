@@ -6,17 +6,16 @@ class Konten(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     photo_id = Column(Integer, ForeignKey("media.id"))
+    kelas = Column(UUID(as_uuid=True), ForeignKey("kelas.id"), nullable=False)
     name = Column(String(255))
     release_date = Column(String)
     text = Column(Text)
     synopsis = Column(Text)
-    owned_by = Column(UUID(as_uuid=True)), ForeignKey("kelas.id")
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 
     rel_kelas_konten = relationship("Kelas", back_populates="rel_konten_kelas")
-    rel_media_konten = relationship("MediaPhoto", back_populates="rel_konten_media")
-    rel_comment_konten = relationship("Comment", back_populates="rel_konten_comment")
+    rel_media_konten = relationship("Media", back_populates="rel_konten_media")
 
     def __repr__(self):
         return json.dumps(

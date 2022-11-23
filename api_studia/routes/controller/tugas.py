@@ -4,7 +4,7 @@ from api_studia.schemas.tugas import TugasCreate
 
 
 def get_all_tugas_kelas(db: Session, kelas_id: str, skip: int = 0):
-    return db.query(Tugas).offset(skip).filter_by(Tugas.kelas_id == kelas_id).all()
+    return db.query(Tugas).filter(Tugas.kelas_id == kelas_id).offset(skip).all()
 
 
 def get_tugas_kelas(db: Session, kelas_id: str, konten_id: str, skip: int = 0):

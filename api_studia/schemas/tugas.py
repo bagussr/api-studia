@@ -6,7 +6,7 @@ from uuid import UUID
 class TugasBase(BaseModel):
     name: str
     description: str
-    deadline: datetime
+    deadline: datetime = datetime.now()
 
 
 class TugasCreate(TugasBase):
@@ -15,7 +15,7 @@ class TugasCreate(TugasBase):
 
 class Tugas(TugasBase):
     id: str
-    kelas_id: UUID
+    kelas_id: str
     craeted_at: datetime
     updated_at: datetime
 

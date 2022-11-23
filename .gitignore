@@ -3,5 +3,3 @@
 poetry.lock
 
 alembic/version/**
-
-alembic/versions/**

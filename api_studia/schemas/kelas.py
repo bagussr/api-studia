@@ -3,12 +3,19 @@ from api_studia.models import tugas, blog
 from datetime import datetime
 from uuid import UUID
 
+import string
+import random
+
+
+def randomword(length):
+    letters = string.ascii_lowercase
+    return "".join(random.choice(letters) for i in range(length))
+
 
 class KelasBase(BaseModel):
-    owner_id: str
+    created_by: str
     name: str
     section: str
-    code: str
 
 
 class KelasCreate(KelasBase):

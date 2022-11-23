@@ -15,8 +15,8 @@ class Tugas(Base):
     name = Column(String(100))
     description = Column(Text)
     deadline = Column(DateTime)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    update_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.datetime.now)
+    update_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
     kelas = relationship("Kelas", back_populates="tugas")
 

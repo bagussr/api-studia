@@ -11,9 +11,9 @@ def get_all_kelas(db: Session, skip: int = 0):
     return db.query(Kelas).offset(skip).all()
 
 
-def create_kelas(db: Session, kelas: KelasCreate):
-    db_kelas = Kelas(id=kelas.id, name=kelas.name, section=kelas.section, code=kelas.code)
-    db.add(kelas)
+async def create_kelas(db: Session, kelas: KelasCreate):
+    db_kelas = Kelas(created_by=kelas.created_by, name=kelas.name, section=kelas.section)
+    db.add(db_kelas)
     db.commit()
     db.refresh(db_kelas)
     return db_kelas

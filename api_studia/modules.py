@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, Request, Response, status, HTTPException, APIRouter
+from fastapi import FastAPI, Depends, Request, Response, status, HTTPException, APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -23,6 +23,6 @@ PUBLIC_DIR = os.path.join(pathlib.Path().absolute().parent, "public")
 
 STATIC_DIR = os.path.join(pathlib.Path().absolute().parent, "public/asset")
 
-DB_URI = "postgresql://postgres:root@localhost/studia"
+DB_URI = "postgresql://postgres:dadasdudus12@localhost/studia"
 
 template = Jinja2Templates(directory=PUBLIC_DIR)
