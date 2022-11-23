@@ -1,7 +1,7 @@
-from api_studia.modules import Session, APIRouter, Depends, HTTPException, status, List
+from api_studia.modules import Session, APIRouter, Depends, HTTPException
 from api_studia.service.db_service import get_db
-from api_studia.routes.controller.kelas import get_kelas, get_all_kelas, create_kelas
-from api_studia.schemas.kelas import KelasCreate, Kelas
+from api_studia.routes.controller.kelas import get_kelas, get_all_kelas, create_kelas, delete_kelas, update_kelas
+from api_studia.schemas.kelas import KelasCreate, KelasBase
 
 kelas_route = APIRouter(prefix="/kelas", tags=["kelas"])
 
@@ -24,6 +24,28 @@ def read_kelas(kelas_id: str, db: Session = Depends(get_db)):
     if db_kelas is None:
         raise HTTPException(status_code=404, detail="Kelas Not Found")
     return {"data": db_kelas}
+
+
+@kelas_route.delete("/{kelas_id}")
+def delete_kelas_route(kelas_id: str, db: Session = Depends(get_db)):
+    if delete_kelas(db, kelas_id=kelas_id):
+        return {"message": "success"}
+    raise HTTPException(status_code=404, detail="Kelas Not Found")
+
+
+@kelas_route.delete("/{kelas_id}/o/{owner_id}")
+def delete_kelas_route(kelas_id: str, owner_id: str, db: Session = Depends(get_db)):
+    if delete_kelas(db, kelas_id=kelas_id):
+        return {"message": "success"}
+    raise HTTPException(status_code=404, detail="Kelas Not Found")
+
+
+@kelas_route.put("/{kelas_id}/o/{owner_id}")
+async def edit_kelas_route(kelas_id: str, owner_id: str, kelas: KelasBase, db: Session = Depends(get_db)):
+    kelas_db = await update_kelas(db, kelas_id=kelas_id, kelas=kelas)
+    if kelas_db:
+        return {"message": "success", "data": kelas_db}
+    raise HTTPException(status_code=404, detail="Kelas Not Found")
 
 
 # @kelas_route.post("/{kelas_id}/konten", response_model=schemas.Konten)

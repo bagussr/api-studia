@@ -13,19 +13,17 @@ def randomword(length):
 
 
 class KelasBase(BaseModel):
-    created_by: str
     name: str
     section: str
 
 
 class KelasCreate(KelasBase):
+    created_by: str
     pass
 
 
 class Kelas(KelasBase):
     id: UUID
-    # tugas_list: list[tugas.Tugas]
-    # konten_list: list[blog.Konten]
     created_at: datetime
     updated_at: datetime
 
