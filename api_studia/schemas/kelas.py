@@ -1,15 +1,12 @@
 from api_studia.modules import BaseModel
-from api_studia.models import tugas, blog
+from api_studia.models import konten, tugas
 from datetime import datetime
 from uuid import UUID
 
-import string
-import random
 
-
-def randomword(length):
-    letters = string.ascii_lowercase
-    return "".join(random.choice(letters) for i in range(length))
+class JoinKelas(BaseModel):
+    user_id: str
+    code: str
 
 
 class KelasBase(BaseModel):
@@ -23,7 +20,7 @@ class KelasCreate(KelasBase):
 
 
 class Kelas(KelasBase):
-    id: UUID
+    id: str
     created_at: datetime
     updated_at: datetime
 

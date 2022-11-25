@@ -1,5 +1,6 @@
 from api_studia.modules import Session
 from api_studia.models.kelas import Kelas
+from api_studia.models.userkelas import UserKelas
 from api_studia.schemas.kelas import KelasCreate, KelasBase
 
 
@@ -36,3 +37,18 @@ async def update_kelas(db: Session, kelas_id: str, kelas: KelasBase):
     db_kelas.section = kelas.section
     db.commit()
     return db_kelas
+
+
+async def join_kelas(db: Session, user_id: str, code: str):
+    db_kelas = db.query(Kelas).filter(Kelas.code == code).first()
+    if db_kelas is None:
+        return False
+    db_join = UserKelas(user_id=user_id, kelas_id=db_kelas.id)
+    db.add(db_join)
+    db.commit()
+    db.refresh(db_join)
+    return db_join
+
+
+def joined_kelas(db: Session, user_id: str):
+    return db.query(Kelas).join(UserKelas).filter(UserKelas.user_id == user_id).all()

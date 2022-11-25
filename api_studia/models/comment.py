@@ -7,9 +7,8 @@ class Comment(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     text = Column(Text)
-    release_date = Column(DateTime, default=datetime.datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
-
+    release_date = Column(DateTime, default=datetime.datetime.now)
+    updated_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
     def __repr__(self):
         return json.dumps(

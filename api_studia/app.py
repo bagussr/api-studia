@@ -2,12 +2,12 @@ from .modules import FastAPI, subprocess, PUBLIC_DIR, STATIC_DIR, AuthJWTExcepti
 from api_studia.routes.api.kelas import kelas_route
 from api_studia.routes.api.tugas import tugas_route
 from api_studia.routes.api.users import user_route
+from api_studia.routes.api.konten import konten_route
 
 app = FastAPI(
     title="API Studia",
     description="API and web interface administration for Studia",
-    version="0.1.0",
-    extra={"author": "Kelompok 7"},
+    version="1.0.0",
     debug=True,
 )
 
@@ -23,6 +23,7 @@ def authjwt_exception_handler(request, exc):
 app.include_router(kelas_route)
 app.include_router(tugas_route)
 app.include_router(user_route)
+app.include_router(konten_route)
 
 
 def start():

@@ -9,8 +9,8 @@ class Media(Base):
     url = Column(String(255))
     base_url = Column(String(255))
     size = Column(String(255))
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    update_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.datetime.now)
+    update_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
     users = relationship("Users", back_populates="media")
     rel_konten_media = relationship("Konten", back_populates="rel_media_konten")

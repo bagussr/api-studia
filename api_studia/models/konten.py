@@ -7,15 +7,17 @@ class Konten(Base):
     id = Column(Integer, primary_key=True, index=True)
     photo_id = Column(Integer, ForeignKey("media.id"))
     kelas = Column(UUID(as_uuid=True), ForeignKey("kelas.id"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     name = Column(String(255))
-    release_date = Column(String)
     text = Column(Text)
     synopsis = Column(Text)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+    release_date = Column(String, nullable=False, default=datetime.datetime.now)
+    created_at = Column(DateTime, default=datetime.datetime.now)
+    updated_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
     rel_kelas_konten = relationship("Kelas", back_populates="rel_konten_kelas")
     rel_media_konten = relationship("Media", back_populates="rel_konten_media")
+    rel_user = relationship("Users", back_populates="rel_konten_userkonten")
 
     def __repr__(self):
         return json.dumps(

@@ -1,7 +1,15 @@
 from api_studia.modules import Session, APIRouter, Depends, HTTPException
 from api_studia.service.db_service import get_db
-from api_studia.routes.controller.kelas import get_kelas, get_all_kelas, create_kelas, delete_kelas, update_kelas
-from api_studia.schemas.kelas import KelasCreate, KelasBase
+from api_studia.routes.controller.kelas import (
+    get_kelas,
+    get_all_kelas,
+    create_kelas,
+    delete_kelas,
+    update_kelas,
+    join_kelas,
+    joined_kelas,
+)
+from api_studia.schemas.kelas import KelasCreate, KelasBase, JoinKelas
 
 kelas_route = APIRouter(prefix="/kelas", tags=["kelas"])
 
@@ -43,6 +51,22 @@ def delete_kelas_route(kelas_id: str, owner_id: str, db: Session = Depends(get_d
 @kelas_route.put("/{kelas_id}/o/{owner_id}")
 async def edit_kelas_route(kelas_id: str, owner_id: str, kelas: KelasBase, db: Session = Depends(get_db)):
     kelas_db = await update_kelas(db, kelas_id=kelas_id, kelas=kelas)
+    if kelas_db:
+        return {"message": "success", "data": kelas_db}
+    raise HTTPException(status_code=404, detail="Kelas Not Found")
+
+
+@kelas_route.post("/join")
+async def join_kelas_route(payload: JoinKelas, db: Session = Depends(get_db)):
+    kelas_db = await join_kelas(db, code=payload.code, user_id=payload.user_id)
+    if kelas_db:
+        return {"message": "success"}
+    raise HTTPException(status_code=404, detail="Kelas Not Found")
+
+
+@kelas_route.get("/join/{user_id}")
+def joinend_kelas_route(user_id: str, db: Session = Depends(get_db)):
+    kelas_db = joined_kelas(db, user_id=user_id)
     if kelas_db:
         return {"message": "success", "data": kelas_db}
     raise HTTPException(status_code=404, detail="Kelas Not Found")
