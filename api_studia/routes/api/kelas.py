@@ -72,28 +72,6 @@ def joinend_kelas_route(user_id: str, db: Session = Depends(get_db)):
     raise HTTPException(status_code=404, detail="Kelas Not Found")
 
 
-# @kelas_route.post("/{kelas_id}/konten", response_model=schemas.Konten)
-# def create_konten_kelas(kelas_id: str, konten: schemas.TugasCreate, db: Session = Depends(get_db)):
-#     return crud.create_konten_kelas(db=db, konten=konten, kelas_id=kelas_id)
-
-
-# @kelas_route.get("/{kelas_id}/konten", response_model=List[schemas.Konten])
-# def read_all_konten_kelas(kelas_id: str, skip: int = 0, db: Session = Depends(get_db)):
-#     db_kelas = crud.get_kelas(db, kelas_id=kelas_id)
-#     if db_kelas is None:
-#         raise HTTPException(status_code=404, detail="Kelas Not Found")
-#     all_konten_kelas = crud.get_all_konten_kelas(db, skip=skip, kelas_id=kelas_id)
-#     return all_konten_kelas
-
-
-# @kelas_route.get("/{kelas_id}/konten/{konten_id}", response_model=schemas.Konten)
-# def read_konten_kelas(kelas_id: str, konten_id: str, skip: int = 0, db: Session = Depends(get_db)):
-#     konten_kelas = crud.get_konten_kelas(db, skip=skip, kelas_id=kelas_id, konten_id=konten_id)
-#     if konten_kelas is None:
-#         raise HTTPException(status_code=404, detail="Konten Not Found")
-#     return konten_kelas
-
-
 # @kelas_route.post("/{kelas_id}/konten/{konten_id}", response_model=schemas.Comment)
 # def create_comment_konten(konten_id: str, kelas_id: str, comment: schemas.CommentCreate, db: Session = Depends(get_db)):
 #     db_konten = crud.get_konten_kelas(db, kelas_id=kelas_id, konten_id=konten_id)

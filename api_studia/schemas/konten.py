@@ -1,4 +1,4 @@
-from api_studia.modules import BaseModel
+from api_studia.modules import BaseModel, Optional
 import json
 
 
@@ -14,7 +14,6 @@ class KontenSchema(BaseModel):
 class CreateKontenSchema(KontenSchema):
     kelas: str
     user_id: str
-    pass
 
     @classmethod
     def __get_validators__(cls):
@@ -25,3 +24,9 @@ class CreateKontenSchema(KontenSchema):
         if isinstance(value, str):
             return cls(**json.loads(value))
         return value
+
+
+class UpdatedKontenSchema(BaseModel):
+    name: Optional[str]
+    text: Optional[str]
+    synopsys: Optional[str]

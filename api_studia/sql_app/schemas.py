@@ -37,15 +37,6 @@ class Comment(CommentBase):
         orm_mode = True
 
 
-class KontenBase(BaseModel):
-    id: str
-    kelas_id: str
-    photo_id: str
-    name: str
-    release_date: str
-    synopsis: str
-
-
 class KontenCreate(KontenBase):
     pass
 
