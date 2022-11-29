@@ -18,6 +18,7 @@ class Konten(Base):
     rel_kelas_konten = relationship("Kelas", back_populates="rel_konten_kelas")
     rel_media_konten = relationship("Media", back_populates="rel_konten_media")
     rel_user = relationship("Users", back_populates="rel_konten_userkonten")
+    rel_comment_konten = relationship("Comment", back_populates="konten_rel")
 
     def __repr__(self):
         return json.dumps(

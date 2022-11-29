@@ -20,21 +20,7 @@ class MediaPhoto(MediaPhotoBase):
         orm_mode = True
 
 
-class CommentBase(BaseModel):
-    id: int
-    konten_id: str
-    user_id: int
-    release_date: str
-    text: str
 
-
-class CommentCreate(CommentBase):
-    pass
-
-
-class Comment(CommentBase):
-    class Config:
-        orm_mode = True
 
 
 class KontenCreate(KontenBase):

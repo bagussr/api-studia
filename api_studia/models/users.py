@@ -23,6 +23,7 @@ class Users(Base):
     media = relationship("Media", back_populates="users")
     kelas = relationship("Kelas", back_populates="owner_id", secondary=UserKelas.__table__)
     rel_konten_userkonten = relationship("Konten", back_populates="rel_user")
+    rel_comment_user = relationship("Comment", back_populates="user_rel")
 
     def __repr__(self):
         return json.dumps(

@@ -6,9 +6,14 @@ class Comment(Base):
     __tablename__ = "comment"
 
     id = Column(Integer, primary_key=True, index=True)
+    konten_id = Column(Integer, ForeignKey("konten.id"))
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     text = Column(Text)
     release_date = Column(DateTime, default=datetime.datetime.now)
     updated_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+
+    konten_rel = relationship("Konten", back_populates="rel_comment_konten")
+    user_rel = relationship("Users", back_populates="rel_comment_user")
 
     def __repr__(self):
         return json.dumps(
