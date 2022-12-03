@@ -8,8 +8,9 @@ from api_studia.routes.controller.comment import (
     delete_comment,
 )
 from api_studia.routes.controller.konten import get_konten_kelas
+from api_studia.service.auth import get_authorize
 
-comment_route = APIRouter(prefix="/comment", tags=["comment"])
+comment_route = APIRouter(prefix="/comment", tags=["comment"], dependencies=[Depends(get_authorize)])
 
 
 @comment_route.post("/{konten_id}/k/{kelas_id}")

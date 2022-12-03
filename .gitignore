@@ -5,3 +5,7 @@ poetry.lock
 alembic/versions/**
 
 public/asset/image/**
+
+.deta
+
+requirements.txt

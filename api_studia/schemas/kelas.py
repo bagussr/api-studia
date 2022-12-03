@@ -15,7 +15,6 @@ class KelasBase(BaseModel):
 
 
 class KelasCreate(KelasBase):
-    created_by: str
     pass
 
 

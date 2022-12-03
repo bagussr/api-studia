@@ -25,11 +25,12 @@ def delete_konten(db: Session, konten_id: int):
 
 
 def get_all_konten_kelas(db: Session, kelas_id: int):
-    return db.query(Konten).filter(Konten.kelas_id == kelas_id).all()
+    return db.query(Konten).filter(Konten.kelas == kelas_id).all()
 
 
 def get_konten_kelas(db: Session, kelas_id: str, konten_id: str, skip: int = 0):
-    return db.query(Konten).offset(skip).filter(Konten.kelas_id == kelas_id and Konten.id == konten_id).first()
+    return db.query(Konten).filter(Konten.kelas_id == kelas_id and Konten.id == konten_id).offset(skip).first()
+
 
 async def update_konten(db: Session, konten: UpdatedKontenSchema, konten_id: int):
     db_konten = db.query(Konten).filter(Konten.id == konten_id).first()
@@ -45,3 +46,6 @@ async def update_konten(db: Session, konten: UpdatedKontenSchema, konten_id: int
         db.refresh(db_konten)
         return db_konten
     return False
+
+def get_konten_by_user(db: Session, user_id: int):
+    return db.query(Konten).filter(Konten.user_id == user_id).all()

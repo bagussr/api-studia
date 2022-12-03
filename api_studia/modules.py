@@ -1,10 +1,11 @@
-from fastapi import FastAPI, Depends, Request, Response, status, HTTPException, APIRouter, UploadFile, File
+from fastapi import FastAPI, Depends, Request, Response, status, HTTPException, APIRouter, UploadFile, File, Header
 from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.background import BackgroundTasks
+from fastapi.openapi.utils import get_openapi
 from fastapi_jwt_auth import AuthJWT
-from fastapi_jwt_auth.exceptions import AuthJWTException
+from fastapi_jwt_auth.exceptions import AuthJWTException, JWTDecodeError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
