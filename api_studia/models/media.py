@@ -14,6 +14,7 @@ class Media(Base):
 
     users = relationship("Users", back_populates="media")
     rel_konten_media = relationship("Konten", back_populates="rel_media_konten")
+    rel_kelas_media = relationship("Kelas", back_populates="rel_media_kelas")
 
     def __repr__(self):
         return json.dumps(

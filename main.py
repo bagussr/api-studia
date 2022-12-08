@@ -2,18 +2,19 @@ from api_studia.modules import (
     FastAPI,
     subprocess,
     PUBLIC_DIR,
-    STATIC_DIR,
     AuthJWTException,
     JSONResponse,
-    get_openapi,
     AuthJWT,
     Request,
+    StaticFiles,
+    CORSMiddleware,
 )
 from api_studia.routes.api.kelas import kelas_route
 from api_studia.routes.api.tugas import tugas_route
 from api_studia.routes.api.users import user_route
 from api_studia.routes.api.konten import konten_route
 from api_studia.routes.api.comment import comment_route
+from api_studia.routes.api.media import media_route
 from api_studia.service.auth import Setting
 
 
@@ -21,6 +22,15 @@ app = FastAPI(
     debug=True,
     docs_url="/api/docs",
     openapi_url="/api/openapi.json",
+)
+
+app.mount("/public", StaticFiles(directory=PUBLIC_DIR), name="public")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -44,8 +54,12 @@ app.include_router(tugas_route)
 app.include_router(user_route)
 app.include_router(konten_route)
 app.include_router(comment_route)
+app.include_router(media_route)
 
 
 def start():
-    cmd = ["poetry", "run", "uvicorn", "api_studia.app:app", "--reload", "--host", "127.0.0.1", "--port", "8000"]
+    cmd = ["poetry", "run", "uvicorn", "main:app", "--reload", "--host", "127.0.0.1", "--port", "8000"]
     subprocess.run(cmd, shell=True)
+
+
+# c01kndoq_gzsqPZ59BBM8XPbPKmDjo9DxF9zramz7 key project

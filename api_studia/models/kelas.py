@@ -13,6 +13,7 @@ class Kelas(Base):
     __tablename__ = "kelas"
 
     id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
+    image_id = Column(Integer, ForeignKey("media.id"))
     name = Column(String(100), nullable=False)
     section = Column(String(100), nullable=False)
     code = Column(String(10), default=randomword(10), unique=True)
@@ -23,6 +24,7 @@ class Kelas(Base):
     tugas = relationship("Tugas", back_populates="kelas")
     owner_id = relationship("Users", back_populates="kelas", secondary=UserKelas.__table__)
     rel_konten_kelas = relationship("Konten", back_populates="rel_kelas_konten")
+    rel_media_kelas = relationship("Media", back_populates="rel_kelas_media")
 
     def __repr__(self):
         return json.dumps(

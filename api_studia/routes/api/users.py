@@ -9,6 +9,7 @@ from api_studia.modules import (
     os,
     pathlib,
     AuthJWT,
+    io,
 )
 from api_studia.schemas.users import CreateUserSchema, LoginSchema, UserSchema
 from api_studia.schemas.media import CreateMediaSchema
