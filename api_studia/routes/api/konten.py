@@ -1,4 +1,4 @@
-from api_studia.modules import Session, APIRouter, Depends, HTTPException, UploadFile, File, os, pathlib
+from api_studia.modules import Session, APIRouter, Depends, HTTPException, UploadFile, File, os, pathlib, io, deta
 from api_studia.service.db_service import get_db
 from api_studia.routes.controller.konten import (
     get_all_konten,
@@ -15,8 +15,6 @@ from api_studia.schemas.konten import CreateKontenSchema, UpdatedKontenSchema
 from api_studia.schemas.media import CreateMediaSchema
 from api_studia.service.auth import get_authorize, admin_authorize
 
-import aiofiles
-
 x = pathlib.Path("public/asset/image").absolute()
 
 konten_route = APIRouter(prefix="/konten", tags=["konten"], dependencies=[Depends(get_authorize)])
@@ -28,9 +26,7 @@ def get_all_konten_route(db: Session = Depends(get_db)):
     return {"message": "success", "data": konten}
 
 
-@konten_route.get(
-    "/{kelas_id}",
-)
+@konten_route.get("/{kelas_id}", dependencies=[Depends(get_authorize)])
 def read_all_konten_kelas(kelas_id: str, db: Session = Depends(get_db)):
     db_kelas = get_kelas(db, kelas_id=kelas_id)
     if db_kelas is None:
@@ -39,31 +35,26 @@ def read_all_konten_kelas(kelas_id: str, db: Session = Depends(get_db)):
     return {"message": "success", "data": all_konten_kelas}
 
 
-@konten_route.post(
-    "/",
-)
+@konten_route.post("/", dependencies=[Depends(get_authorize)])
 async def create_new_konten_route(
     kontens: CreateKontenSchema, file: UploadFile = File(), db: Session = Depends(get_db)
 ):
-    async with aiofiles.open(os.path.join(x, file.filename), "wb") as f:
-        content = await file.read()
-        await f.write(content)
+    drive = deta.Drive("konten")
+    drive.put(file.filename, io.BytesIO(file.file.read()))
     media = await create_media(
         db,
         CreateMediaSchema(
             name=file.filename,
-            url=f"/asset/image/{file.filename}",
-            base_url=os.path.join(x, ""),
-            size=len(content),
+            url=f"/media/konten/{file.filename.split('.')[0]}",
+            base_url="media/konten",
+            size=len(io.BytesIO(file.file.read()).read()),
         ),
     )
     konten = await create_konten(db, kontens, media.id)
     return {"message": "success", "data": konten}
 
 
-@konten_route.delete(
-    "/{konten_id}",
-)
+@konten_route.delete("/{konten_id}")
 def delete_konten_route(konten_id: int, db: Session = Depends(get_db)):
     konten = delete_konten(db, konten_id)
     if konten:

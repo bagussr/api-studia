@@ -1,6 +1,13 @@
 from api_studia.modules import BaseModel
 from datetime import datetime
-from uuid import UUID
+from pydantic import Field
+import random
+import string
+
+
+def randomword(length=10):
+    letters = string.ascii_lowercase
+    return "".join(random.choice(letters) for i in range(length))
 
 
 class TugasBase(BaseModel):
@@ -10,6 +17,7 @@ class TugasBase(BaseModel):
 
 
 class TugasCreate(TugasBase):
+    id: str = Field(default_factory=randomword)
     pass
 
 

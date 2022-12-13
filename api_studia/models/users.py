@@ -13,7 +13,7 @@ class Users(Base):
     password = Column(String(250), nullable=False)
     name = Column(String(250), nullable=False)
     address = Column(String(250))
-    gender = Column(Integer)
+    gender = Column(Boolean, default=False)
     isAdmin = Column(Boolean, default=False)
     isStudent = Column(Boolean, default=False)
     isTeacher = Column(Boolean, default=False)

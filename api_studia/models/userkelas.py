@@ -1,6 +1,4 @@
-from .modules import Base, Integer, String, Column, DateTime, json, ForeignKey, relationship, UUID, datetime
-from sqlalchemy.ext.associationproxy import association_proxy
-
+from .modules import Base, Column, ForeignKey, UUID
 
 class UserKelas(Base):
     __tablename__ = "userkelas"

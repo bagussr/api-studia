@@ -19,6 +19,7 @@ from api_studia.service.auth import Setting
 
 
 app = FastAPI(
+    title="API Studia",
     debug=True,
     docs_url="/api/docs",
     openapi_url="/api/openapi.json",
@@ -47,6 +48,16 @@ def authjwt_exception_handler(request: Request, exc: AuthJWTException):
 @app.exception_handler(403)
 def forbidden_handler(request: Request, exc: Exception):
     return JSONResponse(status_code=403, content={"message": "You are forbidden to access this page", "code": 403})
+
+
+@app.exception_handler(404)
+def not_found_handler(request: Request, exc: Exception):
+    return JSONResponse(status_code=404, content={"message": "Resource not found", "code": 404})
+
+
+@app.exception_handler(500)
+def server_error_handler(request: Request, exc: Exception):
+    return JSONResponse(status_code=500, content={"message": "Server error", "code": 500})
 
 
 app.include_router(kelas_route)

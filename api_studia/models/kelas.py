@@ -4,11 +4,6 @@ import uuid
 import random, string
 
 
-def randomword(length):
-    letters = string.ascii_lowercase
-    return "".join(random.choice(letters) for i in range(length))
-
-
 class Kelas(Base):
     __tablename__ = "kelas"
 
@@ -16,7 +11,7 @@ class Kelas(Base):
     image_id = Column(Integer, ForeignKey("media.id"))
     name = Column(String(100), nullable=False)
     section = Column(String(100), nullable=False)
-    code = Column(String(10), default=randomword(10), unique=True)
+    code = Column(String(10), unique=True)
     created_by = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     created_at = Column(DateTime, default=datetime.datetime.now)
     update_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)

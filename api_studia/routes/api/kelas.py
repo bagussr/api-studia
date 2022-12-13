@@ -12,18 +12,26 @@ from api_studia.routes.controller.kelas import (
     leave_kelas,
     delete_casecade,
 )
+from api_studia.routes.controller.media import get_media_by_name
 from api_studia.schemas.kelas import KelasCreate, KelasBase, JoinKelas
 from api_studia.service.auth import get_authorize, teacher_authorize, student_authorize, admin_authorize
+
+import random
 
 kelas_route = APIRouter(prefix="/kelas", tags=["kelas"])
 
 
 @kelas_route.post("/", dependencies=[Depends(get_authorize), Depends(teacher_authorize)])
 async def create_kelas_route(kelas: KelasCreate, db: Session = Depends(get_db), Authorize: AuthJWT = Depends()):
+    image = f"bg-{random.randrange(1, 7)}.png"
+    media = get_media_by_name(db, image)
     current_user = Authorize.get_jwt_subject()
-    data = await create_kelas(db, kelas, current_user)
-    join_kelas(db, current_user, data.code)
-    return {"message": "success", "data": data}
+    print(kelas)
+    data = await create_kelas(db, kelas, current_user, media.id)
+    await join_kelas(db, current_user, data.code)
+    return {
+        "message": "success",
+    }
 
 
 @kelas_route.get("/", dependencies=[Depends(get_authorize), Depends(admin_authorize)])
@@ -83,42 +91,3 @@ def joinend_kelas_route(db: Session = Depends(get_db), Authorize: AuthJWT = Depe
 def leave_kelas_rout(kelas_id: str, db: Session = Depends(get_db), Authorize: AuthJWT = Depends()):
     kelas = leave_kelas(db, kelas_id=kelas_id, user_id=Authorize.get_jwt_subject())
     return {"message": "success", "data": kelas}
-
-
-# @kelas_route.post("/{kelas_id}/konten/{konten_id}", response_model=schemas.Comment)
-# def create_comment_konten(konten_id: str, kelas_id: str, comment: schemas.CommentCreate, db: Session = Depends(get_db)):
-#     db_konten = crud.get_konten_kelas(db, kelas_id=kelas_id, konten_id=konten_id)
-#     if db_konten is None:
-#         raise HTTPException(status_code=404, detail="Konten Not Found")
-#     return crud.create_comment_konten(db=db, comment=comment, konten_id=konten_id)
-
-
-# @kelas_route.get("/{kelas_id}/konten/{konten_id}", response_model=List[schemas.Comment])
-# def read_all_comment_konten(konten_id: str, kelas_id: str, skip: int = 0, db: Session = Depends(get_db)):
-#     db_konten = crud.get_konten_kelas(db, kelas_id=kelas_id, konten_id=konten_id)
-#     if db_konten is None:
-#         raise HTTPException(status_code=404, detail="Konten Not Found")
-#     read_all_comment_konten = crud.get_all_comment_konten(db, skip=skip, kelas_id=kelas_id)
-#     return read_all_comment_konten
-
-
-# @kelas_route.post("/{kelas_id}/konten/{konten_id}/media", response_model=schemas.MediaPhoto)
-# def create_media_konten(konten_id: str, konten: schemas.MediaPhotoCreate, db: Session = Depends(get_db)):
-#     return crud.create_media_konten(db=db, konten=konten, konten_id=konten_id)
-
-
-# @kelas_route.get("/{kelas_id}/konten/{konten_id}/media", response_model=List[schemas.Konten])
-# def read_all_media_konten(konten_id: str, kelas_id: str, skip: int = 0, db: Session = Depends(get_db)):
-#     db_konten = crud.get_konten_kelas(db, kelas_id=kelas_id, konten_id=konten_id)
-#     if db_konten is None:
-#         raise HTTPException(status_code=404, detail="Konten Not Found")
-#     all_media_konten = crud.get_all_media_konten(db, skip=skip, kelas_id=kelas_id, konten_id=konten_id)
-#     return all_media_konten
-
-
-# @kelas_route.get("/{kelas_id}/konten/{konten_id}/media/{media_id}", response_model=schemas.Konten)
-# def read_media_konten(kelas_id: str, konten_id: str, media_id: int, skip: int = 0, db: Session = Depends(get_db)):
-#     konten_kelas = crud.get_media_konten(db, skip=skip, kelas_id=kelas_id, konten_id=konten_id, media_id=media_id)
-#     if konten_kelas is None:
-#         raise HTTPException(status_code=404, detail="Konten Not Found")
-#     return konten_kelas

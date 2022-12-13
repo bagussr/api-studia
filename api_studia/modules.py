@@ -10,8 +10,9 @@ from fastapi import (
     File,
     Header,
     Form,
+    BackgroundTasks,
 )
-from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse, StreamingResponse
+from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse, StreamingResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.background import BackgroundTasks
@@ -37,8 +38,8 @@ dotenv.load_dotenv()
 PUBLIC_DIR = os.path.join(os.getcwd(), "public")
 
 
-DB_URI = "postgresql://postgres:dadasdudus12@localhost/studia"
+DB_URI = "postgresql://bagussr:v2_3wmxR_sJKev4f2daEvGkecUHTEwzF@db.bit.io/bagussr/api_studia"
 
 template = Jinja2Templates(directory=PUBLIC_DIR)
 
-deta = Deta("c01kndoq_gzsqPZ59BBM8XPbPKmDjo9DxF9zramz7")
+deta = Deta("c01kndoq_cxYMRza7omwbra5CABEQJebyR4Xk5bqZ")
