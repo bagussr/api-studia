@@ -1,25 +1,45 @@
-from fastapi import FastAPI, Depends, Request, Response, status, HTTPException, APIRouter
-from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
+from fastapi import (
+    FastAPI,
+    Depends,
+    Request,
+    Response,
+    status,
+    HTTPException,
+    APIRouter,
+    UploadFile,
+    File,
+    Header,
+    Form,
+    BackgroundTasks,
+)
+from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse, StreamingResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.background import BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_jwt_auth import AuthJWT
-from fastapi_jwt_auth.exceptions import AuthJWTException
+from fastapi_jwt_auth.exceptions import AuthJWTException, JWTDecodeError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
 from pydantic import BaseModel
 from typing import List, Optional
+from deta import Deta
+import io
 import uvicorn
 import os
 import pathlib
 import subprocess
+import dotenv
+
+dotenv.load_dotenv()
 
 
-PUBLIC_DIR = os.path.join(pathlib.Path().absolute().parent, "public")
+PUBLIC_DIR = os.path.join(os.getcwd(), "public")
 
-STATIC_DIR = os.path.join(pathlib.Path().absolute().parent, "public/asset")
 
-DB_URI = ""
+DB_URI = "postgresql://bagussr:v2_3wmxR_sJKev4f2daEvGkecUHTEwzF@db.bit.io/bagussr/api_studia"
 
 template = Jinja2Templates(directory=PUBLIC_DIR)
+
+deta = Deta("c01kndoq_cxYMRza7omwbra5CABEQJebyR4Xk5bqZ")

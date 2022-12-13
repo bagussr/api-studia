@@ -1,6 +1,10 @@
-from sqlalchemy import Column, Date, Integer, String, create_engine, ForeignKey, Boolean
-from service.db_service import Base
+from sqlalchemy import Column, Date, Integer, String, create_engine, ForeignKey, Boolean, Text, DateTime
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
+from api_studia.service.db_service import Base
 import subprocess
+import json
+import datetime
 
 
 def upgrade():
