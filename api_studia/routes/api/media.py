@@ -30,12 +30,12 @@ media_route = APIRouter(prefix="/media", tags=["media"])
 
 @media_route.post("/photos/seeds")
 async def seed_media(db: Session = Depends(get_db)):
-    drive = deta.Drive("photos")
+    # drive = deta.Drive("photos")
     list_folder = os.listdir(os.path.join(PUBLIC_DIR, "asset/image/profile"))
     for x in list_folder:
         for file in os.listdir(os.path.join(PUBLIC_DIR, "asset/image/profile", x)):
             with open(os.path.join(PUBLIC_DIR, f"asset/image/profile/{x}", file.split(".")[0] + ".png"), "rb") as f:
-                drive.put(file, io.BytesIO(f.read()))
+                # drive.put(file, io.BytesIO(f.read()))
                 content = CreateMediaSchema(
                     name=file.split(".")[0] + ".png",
                     url="/media/photo/" + file.split(".")[0],
@@ -87,10 +87,10 @@ async def add_photo_profile(
 @media_route.post("/backgrounds/seeds")
 async def background_seeds(db: Session = Depends(get_db)):
     try:
-        drive = deta.Drive("backgrounds")
+        # drive = deta.Drive("backgrounds")
         for file in os.listdir(os.path.join(PUBLIC_DIR, "asset/image/background")):
             with open(os.path.join(PUBLIC_DIR, f"asset/image/background", file), "rb") as f:
-                drive.put(file, io.BytesIO(f.read()))
+                # drive.put(file, io.BytesIO(f.read()))
                 content = CreateMediaSchema(
                     name=file.split(".")[0] + ".png",
                     url="/media/backgrounds/" + file.split(".")[0],
