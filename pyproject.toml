@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "api-studia"
+version = "0.1.0"
+description = ""
+authors = []
+readme = "README.md"
+packages = [{include = "api_studia"}]
+repository = "https://github.com/bagussr/api-studia"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.86.0"
+sqlalchemy = "^1.4.44"
+fastapi-jwt-auth = "^0.5.0"
+psycopg2 = "^2.9.5"
+jinja2 = "^3.1.2"
+alembic = "^1.8.1"
+uvicorn = "^0.19.0"
+bcrypt = "^4.0.1"
+python-dotenv = "^0.21.0"
+python-multipart = "^0.0.5"
+deta = "^1.1.0"
+pillow = "^9.3.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+
+[tool.poetry.scripts]
+start = "main:start"
+migrate = "api_studia.models.modules:migrate"
+upgrade = "api_studia.models.modules:upgrade"
+downgrade = "api_studia.models.modules:downgrade"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
