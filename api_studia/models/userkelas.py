@@ -1,5 +1,6 @@
 from .modules import Base, Column, ForeignKey, UUID
 
+
 class UserKelas(Base):
     __tablename__ = "userkelas"
 

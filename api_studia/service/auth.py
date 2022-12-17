@@ -5,7 +5,7 @@ security = HTTPBearer()
 
 
 class Setting(BaseModel):
-    authjwt_secret_key: str = os.getenv("SECRET_KEY")
+    authjwt_secret_key: str = "ceb16b193193da3cb138a1fda5042fca203be35a5eea6a933e9717fc83ce5914"
     authjwt_access_token_expires: int = 12 * 60 * 60
 
 

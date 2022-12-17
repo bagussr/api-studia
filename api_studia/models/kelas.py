@@ -1,7 +1,6 @@
 from .modules import Base, Integer, String, Column, DateTime, json, ForeignKey, relationship, UUID, datetime
 from .userkelas import UserKelas
 import uuid
-import random, string
 
 
 class Kelas(Base):
@@ -16,10 +15,9 @@ class Kelas(Base):
     created_at = Column(DateTime, default=datetime.datetime.now)
     update_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
-    tugas = relationship("Tugas", back_populates="kelas")
     owner_id = relationship("Users", back_populates="kelas", secondary=UserKelas.__table__)
-    rel_konten_kelas = relationship("Konten", back_populates="rel_kelas_konten")
     rel_media_kelas = relationship("Media", back_populates="rel_kelas_media")
+    lessons = relationship("Lesson", back_populates="rel_kelas_lessons")
 
     def __repr__(self):
         return json.dumps(

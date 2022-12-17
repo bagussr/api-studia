@@ -12,6 +12,7 @@ from api_studia.models.kelas import Base as BaseKelas
 from api_studia.models.tugas import Base as BaseTugas
 from api_studia.models.userkelas import Base as BaseUserKelas
 from api_studia.models.konten import Base as BaseKonten
+from api_studia.models.lesson import Base as BaseLesson
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
