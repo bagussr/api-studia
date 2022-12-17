@@ -6,7 +6,6 @@ class Konten(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     photo_id = Column(Integer, ForeignKey("media.id"))
-    kelas = Column(UUID(as_uuid=True), ForeignKey("kelas.id"), nullable=False)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     name = Column(String(255))
     text = Column(Text)
@@ -15,7 +14,6 @@ class Konten(Base):
     created_at = Column(DateTime, default=datetime.datetime.now)
     updated_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
-    rel_kelas_konten = relationship("Kelas", back_populates="rel_konten_kelas")
     rel_media_konten = relationship("Media", back_populates="rel_konten_media")
     rel_user = relationship("Users", back_populates="rel_konten_userkonten")
     rel_comment_konten = relationship("Comment", back_populates="konten_rel")

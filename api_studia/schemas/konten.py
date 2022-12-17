@@ -12,9 +12,6 @@ class KontenSchema(BaseModel):
 
 
 class CreateKontenSchema(KontenSchema):
-    kelas: str
-    user_id: str
-
     @classmethod
     def __get_validators__(cls):
         yield cls.validate_to_json

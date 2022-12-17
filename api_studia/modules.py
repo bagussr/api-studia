@@ -25,6 +25,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from pydantic import BaseModel
 from typing import List, Optional
 from deta import Deta
+from PIL import Image
 import io
 import uvicorn
 import os
@@ -42,4 +43,4 @@ DB_URI = "postgresql://bagussr:v2_3wmxR_sJKev4f2daEvGkecUHTEwzF@db.bit.io/baguss
 
 template = Jinja2Templates(directory=PUBLIC_DIR)
 
-deta = Deta("c01kndoq_cxYMRza7omwbra5CABEQJebyR4Xk5bqZ")
+deta = Deta("c01kndoq_FqotFbhG1iFiKsJym8Ti6FAKUqUQroZP")

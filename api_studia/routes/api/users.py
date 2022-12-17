@@ -22,11 +22,11 @@ def get_all_users(db: Session = Depends(get_db), Authorize: AuthJWT = Depends())
 
 
 @user_route.get("/current", dependencies=[Depends(get_authorize)])
-def get_current_user(detail: Optional[str] = None, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+def get_current_user(image: Optional[str] = None, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
     Authorize.jwt_required()
     current_user = Authorize.get_jwt_subject()
     db_user = get_user_id(db, current_user)
-    if detail == "true":
+    if image == "true":
         db_user.image = get_media_by_id(db, db_user.photo_id)
     return {"message": "success", "data": db_user}
 

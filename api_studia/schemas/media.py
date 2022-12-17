@@ -6,6 +6,7 @@ class MediaSchema(BaseModel):
     url: str
     base_url: str
     size: str
+    type: str
 
     class Config:
         orm_mode = True

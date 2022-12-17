@@ -70,7 +70,8 @@ async def join_kelas(db: Session, user_id: str, code: str):
 
 
 def joined_kelas(db: Session, user_id: str):
-    return db.query(Kelas).join(UserKelas).filter(UserKelas.user_id == user_id).all()
+    db_kelas = db.query(Kelas).join(UserKelas).filter(UserKelas.user_id == user_id).all()
+    db_kelas.count = db.query(UserKelas).filter(UserKelas.kelas_id == db_kelas.kelas_id).count()
 
 
 def leave_kelas(db: Session, user_id: str, kelas_id: str):

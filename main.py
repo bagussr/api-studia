@@ -15,6 +15,8 @@ from api_studia.routes.api.users import user_route
 from api_studia.routes.api.konten import konten_route
 from api_studia.routes.api.comment import comment_route
 from api_studia.routes.api.media import media_route
+from api_studia.routes.api.lesson import lesson_route
+
 from api_studia.service.auth import Setting
 
 
@@ -66,6 +68,7 @@ app.include_router(user_route)
 app.include_router(konten_route)
 app.include_router(comment_route)
 app.include_router(media_route)
+app.include_router(lesson_route)
 
 
 def start():

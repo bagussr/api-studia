@@ -7,8 +7,8 @@ def get_all_konten(db: Session):
     return db.query(Konten).all()
 
 
-async def create_konten(db: Session, konten: KontenSchema, media_id: int):
-    db_konten = Konten(**konten.dict(), photo_id=media_id)
+async def create_konten(db: Session, konten: KontenSchema, media_id: int, id: str):
+    db_konten = Konten(**konten.dict(), photo_id=media_id, user_id=id)
     db.add(db_konten)
     db.commit()
     db.refresh(db_konten)

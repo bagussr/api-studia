@@ -9,6 +9,7 @@ class Media(Base):
     url = Column(String(255))
     base_url = Column(String(255))
     size = Column(String(255))
+    type = Column(String(255))
     created_at = Column(DateTime, default=datetime.datetime.now)
     update_at = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
