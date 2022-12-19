@@ -5,7 +5,14 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from api_studia.models.modules import Base
+from api_studia.models.comment import Base as BaseComment
+from api_studia.models.media import Base as BaseMedia
+from api_studia.models.users import Base as BaseUser
+from api_studia.models.kelas import Base as BaseKelas
+from api_studia.models.tugas import Base as BaseTugas
+from api_studia.models.userkelas import Base as BaseUserKelas
+from api_studia.models.konten import Base as BaseKonten
+from api_studia.models.lesson import Base as BaseLesson
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -20,7 +27,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [Base.metadata]
+target_metadata = BaseUser.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
